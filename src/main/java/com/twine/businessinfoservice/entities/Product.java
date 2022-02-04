@@ -19,5 +19,4 @@ public class Product {
     private String  desc;
     private Double price;
     private String mediaLink;
-    private Boolean top5;
 }

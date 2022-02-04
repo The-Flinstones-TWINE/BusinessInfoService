@@ -19,7 +19,7 @@ import java.util.UUID;
 public class Business {
 
     @PrimaryKey
-    private String unique_id= UUID.randomUUID().toString();
+    private String businessId= UUID.randomUUID().toString();
     private String businessName;
     private String   website;
     private String  email;

@@ -32,27 +32,25 @@ public class BusinessController {
 
     //getBusinessById
     @GetMapping("/business/{id}")
-    public Optional<Business> getBusinessById( @PathVariable("id") Long id){
+    public Optional<Business> getByBusinessId( @PathVariable("id") String id){
         try {
-            return businessService.getBusinessById(id);
+            Optional<Business> b = businessService.findByBusinessId(id);
+            return b;
+        } catch (BusinessNotFoundException e) {
+            System.out.println(e.getMessage());
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND,e.getMessage());
+        }
+    }
+    //getBusinessByIndustry
+    @GetMapping("/business/industry{industry}")
+    public List<Business> getByIndustry( @PathVariable("industry") String industry){
+        try {
+            return businessService.getByIndustry(industry);
         } catch (BusinessNotFoundException e) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND,e.getMessage());
         }
     }
 
-    //updateBusinessById
-    @PutMapping("/business/{id}")
-    public Business updateBusinessById(@PathVariable Long id, @RequestBody Business business){
-        try {
-            return businessService.updateBusinessById(id,business);
-        } catch (BusinessNotFoundException e) {
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST,e.getMessage());
-        }
-    }
 
-    //deleteBusinessById
-    @DeleteMapping("/business/{id}")
-    public void deleteBusinessById(@PathVariable("id") Long id)throws BusinessNotFoundException {
-        businessService.deleteBusinessById(id);
-    }
+
 }
