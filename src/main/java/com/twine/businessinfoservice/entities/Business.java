@@ -34,7 +34,7 @@ public class Business {
     private String tags;
     private String industry;
     private List<String> tagsList;
-    private List<String> cover;
+    private String cover;
     private List<String>  itemsImageLinkState;
     private Boolean isTrue;
 //    private String businessName;
