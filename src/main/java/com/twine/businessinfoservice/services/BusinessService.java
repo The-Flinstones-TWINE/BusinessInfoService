@@ -8,6 +8,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
@@ -25,6 +26,8 @@ public class BusinessService {
 
     //createBusiness
     public Business createBusiness(Business business){
+        List<String> tagTemp = Arrays.asList(business.getTags().split("\\s*,\\s*"));
+        business.setTagsList(tagTemp);
         return businessRepo.save(business);
     }
 
