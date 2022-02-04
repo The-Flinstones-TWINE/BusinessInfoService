@@ -32,7 +32,7 @@ public class Business {
     private String instagram;
     private String about;
     private String tags;
-    //    parse and put here
+    private String industry;
     private List<String> tagsList;
     private List<String> cover;
     private List<String>  itemsImageLinkState;
