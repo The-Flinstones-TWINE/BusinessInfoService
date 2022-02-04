@@ -42,7 +42,7 @@ public class BusinessController {
         }
     }
     //getBusinessByIndustry
-    @GetMapping("/business/industry{industry}")
+    @GetMapping("/business/industry/{industry}")
     public List<Business> getByIndustry( @PathVariable("industry") String industry){
         try {
             return businessService.getByIndustry(industry);
