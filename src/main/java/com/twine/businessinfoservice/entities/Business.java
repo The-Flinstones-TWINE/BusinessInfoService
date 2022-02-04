@@ -23,7 +23,7 @@ public class Business {
     private String businessName;
     private String   website;
     private String  email;
-    private Integer phone;
+    private String phone;
     private String addressLine1;
     private String addressLine2;
     private String facebook;
