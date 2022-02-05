@@ -6,9 +6,8 @@ import com.twine.businessinfoservice.repositories.BusinessRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.Arrays;
-import java.util.List;
-import java.util.Optional;
+
+import java.util.*;
 
 @Service
 public class BusinessService {
@@ -30,6 +29,30 @@ public class BusinessService {
         return businessRepo.save(business);
     }
 
+    //post user review
+    public Business postReview(String review,Double reviewRating, String id) throws BusinessNotFoundException {
+        try {
+            Business business = businessRepo.findByBusinessId(id).get();
+            Stack<String> businessReviews =   business.getReviews();
+            if(businessReviews == null)  businessReviews = new Stack<>();
+            businessReviews.push(review);
+            business.setReviews(businessReviews);
+            Double oldOverAllRating =business.getBusinessRating();
+            Double newRating = calculateRating( reviewRating,oldOverAllRating==null?0:oldOverAllRating);
+            //update rating
+            business.setBusinessRating(newRating);
+            return businessRepo.save(business);
+        }catch (RuntimeException e){
+            throw new BusinessNotFoundException("business not found");
+        }
+    }
+
+    //calculate rating
+    public Double calculateRating(Double reviewRating, Double businessRating) throws BusinessNotFoundException {
+        return  businessRating + (reviewRating/5);
+    }
+
+
     //getBusinessById
     public Optional<Business> findByBusinessId(String id) throws BusinessNotFoundException {
 
@@ -38,11 +61,18 @@ public class BusinessService {
             throw new BusinessNotFoundException("business not found");
         return business;
     }
-    public List<Business> getByIndustry(String industry) throws BusinessNotFoundException {
+    //search
+    public List<Business> search(String query) throws BusinessNotFoundException {
+        List<Business> result = new ArrayList<>();
+        List<Business> businesses= businessRepo.findAll();
+        for (Business business:businesses
+             ) {
+            if(business.getTagsList().contains(query))
+                result.add(business);
+        }
+        return result;
 
-        List<Business> business= businessRepo.findByIndustry(industry);
-        if(business==null)
-            throw new BusinessNotFoundException("business not found");
-        return business;
     }
+
+
 }

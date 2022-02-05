@@ -9,6 +9,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
+import javax.websocket.server.PathParam;
 import java.util.List;
 import java.util.Optional;
 @CrossOrigin(origins = "*")
@@ -41,13 +42,22 @@ public class BusinessController {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND,e.getMessage());
         }
     }
-    //getBusinessByIndustry
-    @GetMapping("/business/industry/{industry}")
-    public List<Business> getByIndustry( @PathVariable("industry") String industry){
+    //getBusinessByTags
+    @GetMapping("/business/search/{query}")
+    public List<Business> search( @PathVariable("query") String query){
         try {
-            return businessService.getByIndustry(industry);
+            return businessService.search(query);
         } catch (BusinessNotFoundException e) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND,e.getMessage());
+        }
+    }
+    //updateBusinessById
+    @PutMapping("/business/review/{id}")
+    public Business addReview(@PathVariable String id,@RequestParam String review,@RequestParam Double rating){
+        try {
+            return businessService.postReview(review,rating,id);
+        } catch (BusinessNotFoundException e) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST,e.getMessage());
         }
     }
 
