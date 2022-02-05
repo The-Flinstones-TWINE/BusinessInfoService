@@ -35,7 +35,7 @@ public class Business {
     private String industry;
     private List<String> tagsList;
     private String cover;
-    private List<String>  itemsImageLinkState;
+    private List<String>  productListIds;
     private Boolean isTrue;
     private Stack<String> reviews;
     private Double  businessRating;
