@@ -31,6 +31,12 @@ public class BusinessController {
         return businessService.createBusiness(business);
     }
 
+    //createBusinesses method
+    @PostMapping("/businesses")
+    public List<Business> createBusinesses(@RequestBody List<Business> businesses){
+        return businessService.createBusinesses(businesses);
+    }
+
     //getBusinessById
     @GetMapping("/business/{id}")
     public Optional<Business> getByBusinessId( @PathVariable("id") String id){

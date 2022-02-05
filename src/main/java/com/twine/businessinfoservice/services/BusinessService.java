@@ -29,6 +29,11 @@ public class BusinessService {
         return businessRepo.save(business);
     }
 
+    //createBusinesses
+    public List<Business> createBusinesses(List<Business> business){
+            return businessRepo.saveAll(business);
+    }
+
     //post user review
     public Business postReview(String review,Double reviewRating, String id) throws BusinessNotFoundException {
         try {
