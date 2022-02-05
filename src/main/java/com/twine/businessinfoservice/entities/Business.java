@@ -40,6 +40,7 @@ public class Business {
     private Stack<String> reviews;
     private Double  businessRating;
     private String logo;
+    private String upiId;
 
 }
 
