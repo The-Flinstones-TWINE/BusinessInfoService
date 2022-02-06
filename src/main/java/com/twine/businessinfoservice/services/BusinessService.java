@@ -1,8 +1,11 @@
 package com.twine.businessinfoservice.services;
 
 import com.twine.businessinfoservice.entities.Business;
+import com.twine.businessinfoservice.entities.Product;
 import com.twine.businessinfoservice.exceptions.BusinessNotFoundException;
+import com.twine.businessinfoservice.exceptions.ProductNotFoundException;
 import com.twine.businessinfoservice.repositories.BusinessRepo;
+import com.twine.businessinfoservice.repositories.ProductRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,6 +17,9 @@ public class BusinessService {
 
     @Autowired
     private BusinessRepo businessRepo;
+
+    @Autowired
+    private ProductService productService;
 
 
     //getAllBusinesses
@@ -78,6 +84,18 @@ public class BusinessService {
         return result;
 
     }
+
+    public List<Product> getAllProductsByBusinessId(String businessId) throws BusinessNotFoundException, ProductNotFoundException {
+        Optional<Business> business = findByBusinessId(businessId);
+        List<Product> businessProducts = new ArrayList<>();
+        for (String prodId:business.get().getProductListIds()
+             ) {
+            businessProducts.add(productService.getProductById(prodId).get());
+        }
+        return businessProducts;
+    }
+
+
 
 
 }

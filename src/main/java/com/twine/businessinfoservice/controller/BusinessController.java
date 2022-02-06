@@ -2,7 +2,9 @@ package com.twine.businessinfoservice.controller;
 
 
 import com.twine.businessinfoservice.entities.Business;
+import com.twine.businessinfoservice.entities.Product;
 import com.twine.businessinfoservice.exceptions.BusinessNotFoundException;
+import com.twine.businessinfoservice.exceptions.ProductNotFoundException;
 import com.twine.businessinfoservice.services.BusinessService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -65,6 +67,10 @@ public class BusinessController {
         } catch (BusinessNotFoundException e) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST,e.getMessage());
         }
+    }
+    @GetMapping("/business/catalogue/{id}")
+    public List<Product> getAllProductsByBusinessId( @PathVariable String id) throws BusinessNotFoundException, ProductNotFoundException {
+        return businessService.getAllProductsByBusinessId(id);
     }
 
 
