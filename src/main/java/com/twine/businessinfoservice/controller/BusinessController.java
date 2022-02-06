@@ -57,7 +57,7 @@ public class BusinessController {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND,e.getMessage());
         }
     }
-    //updateBusinessById
+    //updateBusiness review
     @PutMapping("/business/review/{id}")
     public Business addReview(@PathVariable String id,@RequestParam String review,@RequestParam Double rating){
         try {

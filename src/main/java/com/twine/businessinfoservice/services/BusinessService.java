@@ -25,7 +25,7 @@ public class BusinessService {
     public Business createBusiness(Business business){
         List<String> tagTemp = Arrays.asList(business.getTags().split("\\s*,\\s*"));
         business.setTagsList(tagTemp);
-        if(!(business.getBusinessName().length() >0) || !(business.getEmail().length() >0) ||  !(business.getPhone().length() >0) || !(business.getAddressLine1().length() >0) || !(business.getAddressLine2().length() >0) || !(business.getAbout().length() >0) ) throw new RuntimeException("required fields missing");
+        if(!(business.getBusinessName().length() >0) || !(business.getEmail().length() >0) ||  !(business.getPhone().length() >0) || !(business.getAddressLine1().length() >0) || !(business.getAddressLine2().length() >0) || !(business.getAbout().length() >0) || !(business.getLogo().length() >0) ||!(business.getTags().length() >0) ) throw new RuntimeException("required fields missing");
         return businessRepo.save(business);
     }
 

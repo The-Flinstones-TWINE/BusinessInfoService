@@ -29,9 +29,15 @@ public class ProductController {
         return productService.createProduct(product);
     }
 
+    //createProduct method
+    @PostMapping("/products")
+    public List<String> createProducts(@RequestBody List<Product> products){
+        return productService.createProducts(products);
+    }
+
     //getProductById
     @GetMapping("/product/{id}")
-    public Optional<Product> getProductById( @PathVariable("id") Long id){
+    public Optional<Product> getProductById( @PathVariable("id") String id){
         try {
             return productService.getProductById(id);
         } catch (ProductNotFoundException e) {
